@@ -50,7 +50,7 @@ deploy:
     - Adventures-of-Huckleberry-Finn.mobi
     - Adventures-of-Huckleberry-Finn.pdf
   "on":
-    repo: GITenberg/Adventures-of-Huckleberry-Finn_76
+    repo: rdhyee/Adventures-of-Huckleberry-Finn_76
 addons:
   apt:
     packages:
