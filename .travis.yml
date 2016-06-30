@@ -11,9 +11,9 @@ script:
 - git clone https://github.com/gitenberg-dev/asciidoctor-htmlbook.git
 - sudo pip install -r asciidoctor-htmlbook/gitberg-machine/requirements.txt
 
-- >
+- > 
   function build_epub {
-  
+
     asciidoctor -a toc,idprefix=xx_,version=$1 -b xhtml5 -T ./asciidoctor-htmlbook/htmlbook-autogen/ -d book book.asciidoc -o book.html
     git clone https://github.com/gitenberg-dev/HTMLBook
 
@@ -30,10 +30,9 @@ script:
     zip -rX book.epub mimetype
     zip -rX book.epub OEBPS/ META-INF/
     if test -d "OEBPS/images/"; then zip -rX book.epub OEBPS/images/ ;fi
-    if [ "$2" != "book" ]; then mv book.epub $2.epub; fi
+    if [ "$2" != "book" ]; then mv book.epub $2.epub; fi    
 
- }
-
+  }  
 - build_epub $VERSION book
 
 - ebook-convert book.epub book.mobi
