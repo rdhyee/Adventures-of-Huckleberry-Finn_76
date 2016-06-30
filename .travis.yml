@@ -9,25 +9,33 @@ before_install:
 script:
 - VERSION=`ruby -e "require 'yaml'; meta = YAML.load_file('metadata.yaml'); puts meta['_version'];"`
 - git clone https://github.com/gitenberg-dev/asciidoctor-htmlbook.git
-
 - sudo pip install -r asciidoctor-htmlbook/gitberg-machine/requirements.txt
-- asciidoctor -a toc,idprefix=xx_,version=$VERSION -b xhtml5 -T ./asciidoctor-htmlbook/htmlbook-autogen/
-  -d book book.asciidoc -o book.html
-- git clone https://github.com/gitenberg-dev/HTMLBook
 
-# make book.html available to jinja2 environment by putting it into templates
-- cp book.html asciidoctor-htmlbook/gitberg-machine/templates/
+- >
+  function build_epub {
+  
+    asciidoctor -a toc,idprefix=xx_,version=$1 -b xhtml5 -T ./asciidoctor-htmlbook/htmlbook-autogen/ -d book book.asciidoc -o book.html
+    git clone https://github.com/gitenberg-dev/HTMLBook
 
-- /usr/bin/python asciidoctor-htmlbook/gitberg-machine/machine.py -o . -m metadata.yaml book.html
-- xsltproc -stringparam external.assets.list " " ./HTMLBook/htmlbook-xsl/epub.xsl book.html
-- cp ./HTMLBook/stylesheets/epub/epub.css OEBPS
-- if [ -e cover.jpg ]; then cp cover.jpg OEBPS/cover.jpg; fi
-# look for first images directory and one found, copy over to ./OEBPS
-- find . -name images -type d | head -n 1 | xargs -I {} mv {} ./OEBPS/
-- zip -rX book.epub mimetype
-- zip -rX book.epub OEBPS/ META-INF/
-- if test -d "OEBPS/images/"; then zip -rX book.epub OEBPS/images/ ;fi
-- if [ "book" != "book" ]; then mv book.epub book.epub; fi
+  # make book.html available to jinja2 environment by putting it into templates
+    cp book.html asciidoctor-htmlbook/gitberg-machine/templates/
+
+    /usr/bin/python asciidoctor-htmlbook/gitberg-machine/machine.py -o . -m metadata.yaml book.html
+    xsltproc -stringparam external.assets.list " " ./HTMLBook/htmlbook-xsl/epub.xsl book.html
+    cp ./HTMLBook/stylesheets/epub/epub.css OEBPS
+    if [ -e cover.jpg ]; then cp cover.jpg OEBPS/cover.jpg; fi
+
+  # look for first images directory and one found, copy over to ./OEBPS
+    find . -name images -type d | head -n 1 | xargs -I {} mv {} ./OEBPS/
+    zip -rX book.epub mimetype
+    zip -rX book.epub OEBPS/ META-INF/
+    if test -d "OEBPS/images/"; then zip -rX book.epub OEBPS/images/ ;fi
+    if [ "$2" != "book" ]; then mv book.epub $2.epub; fi
+
+ }
+
+- build_epub $VERSION book
+
 - ebook-convert book.epub book.mobi
 - xvfb-run ebook-convert book.epub book.pdf
 branches:
