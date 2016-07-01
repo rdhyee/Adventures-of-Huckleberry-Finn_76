@@ -11,7 +11,8 @@ script:
 - VERSION=`ruby -e "require 'yaml'; meta = YAML.load_file('metadata.yaml'); puts meta['_version'];"`
 - git clone https://github.com/gitenberg-dev/asciidoctor-htmlbook.git
 - sudo pip install -r asciidoctor-htmlbook/gitberg-machine/requirements.txt
-- /usr/local/bin/python2.7 -c "from gitenberg import travis; travis.build_epub('$VERSION', 'book')"
+- sudo which python
+- /usr/local/bin/python -c "from gitenberg import travis; travis.build_epub('$VERSION', 'book')"
 
 - ebook-convert book.epub book.mobi
 - xvfb-run ebook-convert book.epub book.pdf
