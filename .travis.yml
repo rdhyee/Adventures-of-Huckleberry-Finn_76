@@ -34,7 +34,8 @@ deploy:
   skip_cleanup: true
   provider: releases
   api_key:
-    secure: <Content [.travis.deploy.api_key.txt]>
+    secure: WSIGuZ6OnCUj/PcocRF2mnGRtcc+4Q6Iub1gSc6GjC9y9qC73ZKBxbWsKF0M/6MtYl2FR5tFcQgCr5uSMCt1vNs96Xa9u0J554AC8NwC95AaVQULctxBFwgs+b/1oUglNgkmP6oAQmKVWrDp5JJNDddUMY4ooTfNJfV75I612SE6ss9HDsScNnjWmX8yam+EXXhWVs2pMrOR/yNckEVOYnCRVrbVWm+3/mkE4iB8I4NwUPtOyLzaytPc1R+pFIkg532rnQtPgLaqDJpe/M8rUN2HESNzFnNRin0xaOHHBsnlkbg6j8Dhd0P1GRiQaDfbX4cq63Ra86K9mduYzbo9OdkklpVwbTuA0TXXGecfw4z6kl26mUMwcPZG/NK7cZOcjki8ayF3ynWRVVnddl1YwE5gjpCaGQ5sJpK1jtzhxFL0s4KdIHbu7YcNkF5wegP5XGOT/AZMgZkryM95hwhvZhh+k0PeZUtCoeEVKX+PtIlUJkU1xQFkAFaBH2qbav08A/4Onq7C3ukwDQyq/i7UGkaa6lwVcVSTx2kK9Svod/Og9C7aA0LZ+C1toCqacw/ToEY3l+G2JkST/cweqPXhTdOyOTixGJ4+z4OkHRjw+XzG94IQeC11oqs5VqJbs1iqJEENcEQfgTrR5WvUB9f8O5nP3TP+MVnOGWlFK88fUHk=
+
   file:
     - book.epub
     - book.mobi
